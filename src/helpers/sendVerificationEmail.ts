@@ -11,7 +11,7 @@ export default async function sendVerificationEmail(
 ) : Promise<apiResponse> {
     try {
         await resendClient.emails.send({
-            from: 'you@example.com',
+            from: 'onboarding@resend.dev',
             to: email,
             subject: "Verification code for bubler",
             react: EmailTemplate ({email, username:username, otp:otp}),
