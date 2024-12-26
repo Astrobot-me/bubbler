@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 
+
 export default {
     darkMode: ["class"],
     content: [
@@ -55,7 +56,12 @@ export default {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+		fontFamily:{
+			'srisacha':["Sriracha", 'serif'],
+			'orbitron':["Orbitron", 'serif'],
+			'flux':["Afacad Flux", 'serif']
+		}
   	}
   },
   plugins: [require("tailwindcss-animate")],

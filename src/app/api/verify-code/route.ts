@@ -66,10 +66,11 @@ export async function POST(req:Request){
     } catch (error) {
         console.log("Error Occured during otp verification")
         return Response.json({
-            success:500,
+            success:false,
             message:"Error Occured during otp verification"
         },{
             status:500
         })
     }
 }
+

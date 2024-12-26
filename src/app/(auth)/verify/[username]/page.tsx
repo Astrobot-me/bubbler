@@ -13,17 +13,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
-import {REGEXP_ONLY_DIGITS} from 'input-otp'
-import { useEffect } from "react";
+import { REGEXP_ONLY_DIGITS } from 'input-otp'
+import { useEffect, useState } from "react";
+
+
 
 export default function SignIn() {
 
-  // useEffect(()=>{
-// Implement auto check for verification
-  // },[])
-
-
-
+  const [username, setUsername] = useState("")
   const router = useRouter();
   const { toast } = useToast();
   const form = useForm<z.infer<typeof verifySchema>>({
@@ -35,6 +32,27 @@ export default function SignIn() {
   })
 
   const params = useParams<{ username: string }>()
+  setUsername(params.username)
+
+
+  useEffect(() => {
+    const checkVerified = async () => {
+      if (username) {
+        try {
+          const response = await axios.get(`/api/getverification?username=${username}`)
+          if (response.data.message) {
+            router.push("/") // pushes to home
+          }
+        } catch (error) {
+            //pass
+        }
+      }
+    }
+
+    checkVerified()
+    
+  }, [username])
+
 
   const OnSubmit = async (data: z.infer<typeof verifySchema>) => {
     try {
@@ -89,8 +107,8 @@ export default function SignIn() {
                         <InputOTPSlot index={4} />
                         <InputOTPSlot index={5} />
                       </InputOTPGroup>
-                     </InputOTP> 
-                      <FormMessage />
+                    </InputOTP>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
