@@ -53,7 +53,7 @@ export default function SignUp() {
         setIsChecking(true)
         try {
           const response = await axios.get<apiResponse>(`/api/verify-unique-user?username=${username}`)
-          console.log("response : ", response);
+          
           setUsernameMessage(response.data.message)
         } catch (error) {
           const axiosError = error as AxiosError<apiResponse>
@@ -72,24 +72,27 @@ export default function SignUp() {
 
   const OnSubmit = async (data: z.infer<typeof userValidator>) => {
     setIsSubmitting(true)
+    console.log("data object",data);
     try {
       const response = await axios.post("/api/sign-up", data)
-
+      console.log("response : ", response);
       // Handle more cases for toast
       toast({
         title: "Successfull ",
         description: "User Registered! Please verify"
       })
-      router.replace(`/api/verify-code/${data.username}`)
+      router.replace(`/verify/${data.username}`)
       setIsSubmitting(false)
 
     } catch (error) {
+      console.log("error ",error);
       const axiosError = error as AxiosError<apiResponse>;
+      console.log("Axios error: ",axiosError);
       let errorMessage = axiosError?.response?.data.message
 
       toast({
         title: "Some Error Occured",
-        description: errorMessage,
+        description: errorMessage || "Some Error Occured",
         variant: "destructive"
       })
       setIsSubmitting(false)
@@ -106,7 +109,7 @@ export default function SignUp() {
         <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
           <div className="text-center">
 
-            <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
+            <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6 text-gray-900 ">
               Join Bubbler Message
             </h1>
 
