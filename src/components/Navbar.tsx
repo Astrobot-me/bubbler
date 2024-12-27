@@ -22,11 +22,19 @@ export default function Navbar() {
                 </a>
                 {session ? (
                     <>
-                        <span className="mr-4">
-                            Welcome, {user.username || user.email}
+                        <span className="mr-4 font-flux text-xl">
+                            Welcome, {(user.username || user.email)?.toUpperCase()}
                         </span>
-                        <Button onClick={() => signOut()} className="w-full md:w-auto bg-slate-300 text-black font-flux" variant='outline'>
-                            Logout
+                        <Button onClick={() => {
+                            signOut()
+                            setSigninClicked(true)
+
+                            }} className="w-full md:w-auto bg-slate-300 text-black font-flux" variant='outline'>
+                            {signInClicked ? (
+                                <>
+                                    <Loader className="w-4 h-4 animate-spin" />
+                                </>
+                            ) : ("Log out")}
                         </Button>
                     </>
                 ) : (
@@ -55,8 +63,8 @@ export default function Navbar() {
                                     </>
                                 ) : (
                                     <>
-                                    Sign Up
-                                    <ArrowRightToLine/>
+                                        Sign Up
+                                        <ArrowRightToLine />
                                     </>
                                 )}
                             </Button>

@@ -18,13 +18,16 @@ export const authOption : NextAuthOptions = {
                 await dbConnect();
 
                 try {
+
+                    // console.log("Email/username recieved",credentials);
                     const user = await UserModel.findOne({
                         $or:[
-                            {email:credentials.identifier.email},
-                            {username:credentials.identifier.username},
+                            {email:credentials.identifier},
+                            {username:credentials.identifier},
                         ],
-                    })
+                    }).exec()
 
+                    // console.log("Found user in db", user);
                     if(!user){
                         throw new Error("No user found with this email/username")
                     }

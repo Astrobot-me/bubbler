@@ -1,20 +1,23 @@
 'use client';
 
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod'
 import { signinSchema } from "@/schemas/signinSchema";
 import * as z from "zod";
-import { signIn } from "next-auth/react";
+import { signIn, SignInResponse } from "next-auth/react";
 import { useToast } from "@/hooks/use-toast";
 import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Loader2 } from "lucide-react";
 
 
 export default function SignIn() {
+
+    const [isClicked,setIsClicked] = useState(false)
 
     const router = useRouter()
     const form = useForm<z.infer<typeof signinSchema>>({
@@ -29,13 +32,17 @@ export default function SignIn() {
 
 
     const OnSubmit = async (data: z.infer<typeof signinSchema>) => {
-        const result = await signIn('credentials', {
+        const result  = await signIn('credentials', {
             redirect: false,
             identifier: data.identifier,
             password: data.password
         })
 
+        console.log("Result object ::",result);
+        
+
         if (result?.error) {
+            setIsClicked(false)
             if (result.error === 'CredentialsSignin') {
                 toast({
                     title: 'Login Failed',
@@ -51,8 +58,11 @@ export default function SignIn() {
             }
         }
 
-        if (result?.url) {
-            router.replace('/dashboard');
+        if (result.url || result.ok) {
+            toast({
+                title:"Sign In Successful!"
+            })
+            router.replace('/');
         }
     }
 
@@ -91,7 +101,16 @@ export default function SignIn() {
                                     </FormItem>
                                 )}
                             />
-                            <Button className='w-full' type="submit">Sign In</Button>
+                            <Button className='w-full' type="submit" onClick={()=>setIsClicked(true)}>
+
+                            {isClicked ? (
+                                    <>
+                                        {<Loader2 className="animate-spin" ></Loader2>} Please wait
+                                    </>
+                                ) : (<>
+                                    Sign In
+                                </>)}
+                            </Button>
                         </form>
                     </Form>
                     <div className="text-center mt-4">
