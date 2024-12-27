@@ -32,26 +32,38 @@ export default function SignIn() {
   })
 
   const params = useParams<{ username: string }>()
-  setUsername(params.username)
+  console.log("username",params);
+  
+  
+  if(params.username){
+    
+    // setUsername(params.username)
+  }
 
 
   useEffect(() => {
     const checkVerified = async () => {
-      if (username) {
+      if (params.username) {
         try {
-          const response = await axios.get(`/api/getverification?username=${username}`)
+          const response = await axios.get(`/api/getverification?username=${params.username}`)
           if (response.data.message) {
             router.push("/") // pushes to home
           }
+         
         } catch (error) {
-            //pass
+            toast({
+              title:"Some Error Occured",
+              variant:"destructive"
+            })
+            router.replace("/sign-in")
         }
+        
       }
     }
 
     checkVerified()
     
-  }, [username])
+  }, [params.username])
 
 
   const OnSubmit = async (data: z.infer<typeof verifySchema>) => {
@@ -71,6 +83,7 @@ export default function SignIn() {
 
     } catch (error) {
       const axiosError = error as AxiosError<apiResponse>;
+      console.log("AxiosError",axiosError);
       toast({
         title: "Some Error Occured",
         description: axiosError?.response?.data?.message,
