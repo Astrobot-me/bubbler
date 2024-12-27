@@ -82,7 +82,7 @@ export default function UserDashboard(){
 
     const handleChangeAcceptMessage = async () => {
         try {
-            const response = await axios.put("/api/accept-message",
+            const response = await axios.post("/api/accept-message",
                 {
                     acceptMessage:!acceptMessage
                 }
@@ -95,8 +95,9 @@ export default function UserDashboard(){
 
         } catch (error) {
             const axiosError = error as AxiosError<apiResponse>
+            // console.log("Axios Error",axiosError);
             toast({
-                title:"Failed to updated message state",
+                title:"Failed to updated Accepting Status",
                 description:axiosError.response?.data.message,
                 variant:"destructive"
             })

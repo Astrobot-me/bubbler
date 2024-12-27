@@ -26,7 +26,7 @@ import { Button } from "./ui/button";
 import { X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import apiResponse from "@/types/apiResponse";
-
+import dayjs from 'dayjs';
 
 type Messageprops = {
     content: Message,
@@ -67,8 +67,8 @@ export default function Messagecard({ content, onMessageDelete }: Messageprops) 
 
         <Card>
             <CardHeader>
-                <CardTitle>Card Title</CardTitle>
-                <CardDescription>Card Description</CardDescription>
+                {/* <CardTitle>Card Title</CardTitle> */}
+                <CardDescription>Sent at {dayjs(content.timestamp).format('MMM D, YYYY h:mm A')}</CardDescription>
             </CardHeader>
             <CardContent>
                 <p>{content?.content}</p>
@@ -76,7 +76,7 @@ export default function Messagecard({ content, onMessageDelete }: Messageprops) 
             <CardFooter>
                 <AlertDialog>
                     <AlertDialogTrigger asChild>
-                        <Button variant="outline"> <X className="h-5 w-5" /> Delete </Button>
+                        <Button variant="outline" className="bg-red-500" > <X className="h-5 w-5" /> Delete </Button>
                     </AlertDialogTrigger>
                     <AlertDialogContent>
                         <AlertDialogHeader>
@@ -87,7 +87,7 @@ export default function Messagecard({ content, onMessageDelete }: Messageprops) 
                         </AlertDialogHeader>
                         <AlertDialogFooter>
                             <AlertDialogCancel>Cancel</AlertDialogCancel>
-                            <AlertDialogAction onClick={()=> handleContinueDelete}>Continue</AlertDialogAction>
+                            <AlertDialogAction onClick={()=> handleContinueDelete()}>Continue</AlertDialogAction>
                         </AlertDialogFooter>
                     </AlertDialogContent>
                 </AlertDialog>

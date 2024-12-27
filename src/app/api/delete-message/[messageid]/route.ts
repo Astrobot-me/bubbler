@@ -4,12 +4,13 @@ import { authOption } from "../../auth/[...nextauth]/options";
 import { getServerSession } from "next-auth";
 
 
-interface params {
+type paramObject = {
+    params: Promise<{
     messageid:string
-}
+}>}
 
 
-export async function DELETE(req:Request,params:params) {
+export async function DELETE(req:Request,{params}:params) {
     
     await dbConnect();
     
@@ -25,8 +26,10 @@ export async function DELETE(req:Request,params:params) {
         })
     } 
     
-    const messageId = params.messageid
+    const messageId = (await params).messageid
     const username = session.user.username 
+
+    console.log("meesage id",messageId);
 
     const updatedUser = await UserModel.updateOne({
         username

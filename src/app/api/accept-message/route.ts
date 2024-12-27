@@ -42,7 +42,7 @@ export async function POST(req:Request) {
 
         return Response.json({
             success : true,
-            message:"User is successfully with current state"
+            message:"User is successfully updated with current state"
         },{
             status:200
         })
@@ -64,7 +64,8 @@ export async function GET(req:Request) {
     await dbConnect();
     try {
         const session = await getServerSession(authOption); 
-        if(!session || session?.user ){
+        // console.log("Session, ", session);
+        if(!session || !session?.user ){
             return Response.json({
                 success : false,
                 message:"User is not logged in! Please log in"

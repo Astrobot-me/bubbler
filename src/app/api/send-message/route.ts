@@ -30,7 +30,7 @@ export async function POST(req:Request) {
                 success : false,
                 message:"User is not accepting messages anymore"
             },{
-                status:200
+                status:400
             })
         }
 
