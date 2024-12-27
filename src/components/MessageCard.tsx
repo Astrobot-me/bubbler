@@ -47,6 +47,7 @@ export default function Messagecard({ content, onMessageDelete }: Messageprops) 
                 description:response.data.message
 
             })
+            onMessageDelete(content._id as string)
             
         } catch (error) {
             const axiosError = error as AxiosError<apiResponse>
@@ -57,6 +58,9 @@ export default function Messagecard({ content, onMessageDelete }: Messageprops) 
 
             })
         }
+
+        
+
     }
 
     return <React.Fragment>
