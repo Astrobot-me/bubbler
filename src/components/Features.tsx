@@ -8,14 +8,14 @@ import Instant from '../../resources/instant.png';
 
 export default function Features() {
     return <>
-        <div className="w-full h-auto flex flex-col items-center mt-3  mb-8">
+        <div className="w-full h-screen flex flex-col items-center mt-3  mb-8">
             <div className="flex flex-col items-center w-full text-center">
                 <p className="sm:text-5xl text-xl font-semibold font-flux text-black">
                 Break Free from Social Barriers
                 </p>
                 <div className="border-b-2 rounded mt-1 sm:w-[10%] w-[40%] border-slate-950" />
             </div>
-            <div className="w-[95%] h-auto flex flex-wrap justify-evenly p-1 pt-10">
+            <div className="w-[95%] h-auto flex flex-wrap justify-evenly p-1 pt-10 mb-2">
                 {/* Cards  */}
                 <div className="sm:w-[450px] w-[95%] h-auto bg-black shadow flex flex-col justify-evenly items-center p-2 rounded-2xl text-center hover:scale-105 hover:duration-500 hover:linear mb-10">
                     <Image className="w-56" src={Privacy} alt="img"  />
@@ -42,6 +42,7 @@ export default function Features() {
                 
                
             </div>
+            <div className=" border py-3 mt-2  font-flux w-full text-center align-middle sm:text-6xl text-3xl text-black italic font-bold"> Ready to Experience? , Sign up Now!</div>
         </div>
 
 

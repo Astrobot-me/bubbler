@@ -1,6 +1,6 @@
 'use client'
 import React from 'react';
-import { Github , Twitter, Linkedin, Heart, Mail, MessageSquare,AtSign } from 'lucide-react';
+import { Github , Twitter, Linkedin, Heart, Mail, MessageSquare,AtSign, Copyright } from 'lucide-react';
 
 export default function Footer(){
   return (
@@ -44,6 +44,12 @@ export default function Footer(){
           >
             Aditya (Astrobot)
           </a>
+        </div>
+        <div className="flex items-center justify-center text-sm mt-1 text-gray-400">
+          
+          <Copyright className="h-4 w-4 mx-1 " />
+          <span>All Copyrights reserved 2024</span>
+          
         </div>
       </div>
     </footer>
