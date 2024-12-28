@@ -6,6 +6,7 @@ import axios, { AxiosError } from "axios";
 import { useParams } from "next/navigation"
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useTimeout } from "usehooks-ts";
 import * as z from "zod"
 import { useToast } from "@/hooks/use-toast";
 import apiResponse from "@/types/apiResponse";
@@ -15,12 +16,13 @@ import { Button } from "@/components/ui/button";
 import { Loader2, Trash2 } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import Navbar from '../../../components/Navbar'
+import Footer from "@/components/Footer";
 
 
 export default function SendMessage() {
 
     const [isSent, setIsSent] = useState(false);
-    const refer = useRef(null)
+    
 
 
     const form = useForm<z.infer<typeof messageSchema>>({
@@ -48,9 +50,9 @@ export default function SendMessage() {
 
             toast({
                 title: "Message Sent Successfully",
-                description: `messeage sent to the @${username}`
+                description: response.data.message
             })
-
+            form.reset()
         } catch (error) {
             const axiosError = error as AxiosError<apiResponse>
 
@@ -66,18 +68,19 @@ export default function SendMessage() {
         }
     }
 
-    const handleClearBox = () => {
-        if(refer.current){
-            refer.current.value = ""
-        }
+    const Clearfields = ()=>{
+        console.log("clearing..");
+        form.reset()
     }
+
+    const timeoutRef = useTimeout(Clearfields, 700);
 
     return <>
         <Navbar/>
-        <main className="container flex flex-col items-center px-2 w-screen h-full">
+        <main className="flex flex-col items-center  px-2 w-full  sm:h-screen h-auto">
             <h1 className="font-flux text-[50px] font-bold text-gray-900 text-center mt-4 ">Send Secret Messages in Bubbles</h1>
-            <p className="font-flux w-[90%] text-center text-lg mb-4">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aperiam fugiat dolore, blanditiis itaque voluptate nam quas suscipit alias necessitatibus recusandae nobis animi dolores quidem iure hic consequuntur illo? Id, a!</p>
-            <section className="w-[90%]">
+            <p className="font-flux sm:w-[90%] w-[96%] text-center sm:text-lg text-sm mb-4">Sometimes the fear of judgment holds us back from genuine communication. Our platform removes these barriers, creating a space where honest conversations can flourish. Receive authentic feedback, engage in real discussions, and discover truths that might otherwise remain unspoken.</p>
+            <section className="w-[90%] sm:mb-0 mb-10">
                 <Form {...form}  >
                     <form onSubmit={form.handleSubmit(OnSubmit)} className="space-y-8 ">
                         <FormField
@@ -89,7 +92,7 @@ export default function SendMessage() {
                                     <FormControl>
                                         <Textarea placeholder="This must be a secret, we will keep it secret" {...field}
                                             className="min-h-24 h-24"
-                                            ref={refer}
+                                            
                                         // onChange={()=>setIsSent(false)}
                                         />
                                     </FormControl>
@@ -100,9 +103,9 @@ export default function SendMessage() {
                                 </FormItem>
                             )}
                         />
-                        <div className=" flex items-center gap-2">
+                        <div className=" flex items-center w-full gap-2">
                             <Button type="submit"
-                                className="w-full md:w-auto py-4 bg-gray-900 text-white font-semibold px-8 rounded-lg" >
+                                className="w-full md:w-auto py-4 bg-black text-white font-semibold px-8 rounded-lg"  >
                                 {isSent ? (
                                     <>
                                         {<Loader2 className="animate-spin" ></Loader2>} Please wait
@@ -112,7 +115,7 @@ export default function SendMessage() {
                                 </>)}
                             </Button>
                             <Button type="button"
-                            onClick={handleClearBox}
+                            onClick={()=> form.reset()}
                             variant="outline"
                                 className="w-full md:w-auto py-4 bg-red-600 text-white font-semibold px-8 rounded-lg" >
                                 {
@@ -124,5 +127,6 @@ export default function SendMessage() {
                 </Form>
             </section>
         </main>
+        <Footer/>
     </>
 }

@@ -30,11 +30,19 @@ export async function GET(req:Request) {
             { $sort: { 'messages.timestamp': -1 } },
             { $group: { _id: '$_id', messages: { $push: '$messages' } } },
         ]).exec();
-      
-        if (!user || user.length === 0) {
+        
+        // console.log("user",user);
+
+        if (!user) {
         return Response.json(
             { message: 'User not found', success: false },
             { status: 404 }
+        );
+        }
+        if (user.length === 0) {
+        return Response.json(
+            { message: "You don't have any messages ", success: false },
+            { status: 200 }
         );
         }
     

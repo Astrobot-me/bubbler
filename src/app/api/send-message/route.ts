@@ -37,9 +37,18 @@ export async function POST(req:Request) {
         userInDb.messages.push(entry as Message)
         await userInDb.save()
 
+        if(username === "aditya"){
+            return Response.json({
+                success : true,
+                message:`Hurray! You just sent an message to Aditya`
+            },{
+                status:200
+            })
+        }
+
         return Response.json({
             success : true,
-            message:"Message is sucessfully sent to the user"
+            message:`Message is sucessfully sent to the @${username}`
         },{
             status:200
         })

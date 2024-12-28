@@ -1,6 +1,6 @@
 import { Section, Img, Text, Heading, Button } from "@react-email/components";
 
-
+import BubbleGif from '../resources/emailBanner.gif'
 
 interface VerificationEmailProps {
   email: string,
@@ -19,7 +19,7 @@ export default function EmailTemplate({
         alt="Braun Collection"
         className="w-full rounded-[12px] object-cover"
         height={320}
-        src="https://react.email/static/braun-collection.jpg"
+        src="https://i.imgur.com/222iK9F.gif"
       />
       <Section className="mt-[32px] text-center">
         <Text className="mt-[16px] text-[18px] font-semibold leading-[28px] text-indigo-600">
@@ -29,23 +29,18 @@ export default function EmailTemplate({
           as="h1"
           className="text-[36px] font-semibold leading-[40px] tracking-[0.4px] text-gray-900"
         >
-         Email {email} & username : {username}
+         Email {email} & Username  {username}
         </Heading>
-        <Text className="mt-[8px] text-[16px] leading-[24px] text-gray-500">
+        <Text className="mt-[8px] text-[16px] leading-[24px] text-gray-900">
           Please don't share this otp with anyone, keep you otp secured
         </Text>
         <Heading
           as="h1"
-          className="text-[4px] font-semibold leading-[40px] tracking-[0.4px] text-indigo-700"
+          className="text-[50px] font-semibold leading-[40px] tracking-[0.4px] text-black"
         >
          {otp}
         </Heading>
-        <Button
-          className="mt-[16px] rounded-[8px] bg-indigo-600 px-[24px] py-[12px] font-semibold text-white"
-          href="https://bubbler.netlify.com"
-        >
-          Login Now
-        </Button>
+        
       </Section>
     </Section>
   </>

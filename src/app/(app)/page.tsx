@@ -11,22 +11,22 @@ export default function Home() {
 
   return (
     <>
-      <section className="w-full h-auto flex flex-col sm:px-14 px-2 ">
-        <p className="mt-7 font-flux text-xl text-gray-950">
+      <section className="w-full h-auto flex flex-col sm:px-14 px-2 mb-20 ">
+        <p className="mt-7 font-flux text-xl text-center sm:text-left text-gray-950">
           Let anyone ask you some Interesting questions
         </p>
         <div className="flex w-full h-full mt-4 sm:flex-row flex-col">
-          <div className="flex flex-col sm:w-[60%] w-full">
-            <div className="sm:text-[80px] text-[75px] w-full font-bold font-montserrat text-slate-950 " style={{lineHeight:1.2}}>
+          <div className="flex flex-col  sm:w-[60%] w-full">
+            <div className="sm:text-[80px] text-[60px]  font-bold font-montserrat text-slate-950 text-center sm:text-left " style={{lineHeight:1.2}}>
               Send Mysterious <br /> <span className="text-slate-900">Bubble</span> <br/>  Messages
             </div>
-            <p className="text-gray-900 sm:w-[80%] w-full p-1 mt-14 text-md italic ">
+            <p className="text-gray-900 sm:w-[80%] w-full p-1 mt-14 text-md italic text-center sm:text-left ">
             Express yourself without hesitation. Our platform lets you share your thoughts, feelings, and feedback while maintaining complete privacy. Whether it's heartfelt confessions, honest feedback, or just playful banter - say what's on your mind without revealing who you are.
             </p>
             <div
              
               
-              className="sm:mt-10 mt-2 flex flex-row items-center justify-center  gap-1 sm:w-[30%] w-[50%] h-12 rounded-full bg-black text-white cursor-pointer"
+              className="sm:mt-10 mt-2 flex flex-row items-center justify-center gap-1 w-full mx-1 sm:w-[50%] h-12 rounded-full bg-black text-white cursor-pointer"
             >
               <p className=" font-montserrat">{
                 

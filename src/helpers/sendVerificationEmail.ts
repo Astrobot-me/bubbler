@@ -13,7 +13,7 @@ export default async function sendVerificationEmail(
         await resendClient.emails.send({
             from: 'onboarding@resend.dev',
             to: email,
-            subject: "Verification code for bubler",
+            subject: "Verification code for Bubbler Messenger",
             react: EmailTemplate ({email, username:username, otp:otp}),
           })
           return { success: true, message: 'Verification email sent successfully.' };

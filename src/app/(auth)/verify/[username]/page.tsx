@@ -15,12 +15,14 @@ import { Input } from "@/components/ui/input";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { REGEXP_ONLY_DIGITS } from 'input-otp'
 import { useEffect, useState } from "react";
+import { Loader2 } from "lucide-react";
 
 
 
 export default function SignIn() {
 
   const [username, setUsername] = useState("")
+  const  [isSubmit,setIsSubmit] = useState(false)
   const router = useRouter();
   const { toast } = useToast();
   const form = useForm<z.infer<typeof verifySchema>>({
@@ -41,32 +43,33 @@ export default function SignIn() {
   }
 
 
-  useEffect(() => {
-    const checkVerified = async () => {
-      if (params.username) {
-        try {
-          const response = await axios.get(`/api/getverification?username=${params.username}`)
-          if (response.data.message) {
-            router.push("/") // pushes to home
-          }
+  // useEffect(() => {
+  //   const checkVerified = async () => {
+  //     if (params.username) {
+  //       try {
+  //         const response = await axios.get(`/api/getverification?username=${params.username}`)
+  //         if (response.data.message) {
+  //           router.push("/") // pushes to home
+  //         }
          
-        } catch (error) {
-            toast({
-              title:"Some Error Occured",
-              variant:"destructive"
-            })
-            router.replace("/sign-in")
-        }
+  //       } catch (error) {
+  //           toast({
+  //             title:"Some Error Occured",
+  //             variant:"destructive"
+  //           })
+  //           router.replace("/sign-in")
+  //       }
         
-      }
-    }
+  //     }
+  //   }
 
-    checkVerified()
+  //   checkVerified()
     
-  }, [params.username])
+  // }, [params.username])
 
 
   const OnSubmit = async (data: z.infer<typeof verifySchema>) => {
+    setIsSubmit(true)
     try {
 
       const response = await axios.post("/api/verify-code", {
@@ -90,6 +93,9 @@ export default function SignIn() {
         variant: "destructive"
       })
 
+    }
+    finally{
+      setIsSubmit(false)
     }
   }
 
@@ -125,7 +131,17 @@ export default function SignIn() {
                   </FormItem>
                 )}
               />
-              <Button type="submit">Verify</Button>
+              <Button type="submit" onClick={()=> setIsSubmit(true)}>
+
+              {isSubmit ? (
+                                    <>
+                                        {<Loader2
+                                         className="animate-spin" ></Loader2>} Please wait
+                                    </>
+                                ) : (<>
+                                    Verify
+                                </>)}
+              </Button>
             </form>
           </Form>
         </div>

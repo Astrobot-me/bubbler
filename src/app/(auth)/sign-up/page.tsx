@@ -52,8 +52,8 @@ export default function SignUp() {
       if (username) {
         setIsChecking(true)
         try {
-          const response = await axios.get<apiResponse>(`/api/verify-unique-user?username=${username}`)
-          
+          const response = await axios.get<apiResponse>(`/api/verify-unique-user?username=${username.toLowerCase()}`)
+
           setUsernameMessage(response.data.message)
         } catch (error) {
           const axiosError = error as AxiosError<apiResponse>
@@ -72,7 +72,7 @@ export default function SignUp() {
 
   const OnSubmit = async (data: z.infer<typeof userValidator>) => {
     setIsSubmitting(true)
-    console.log("data object",data);
+    console.log("data object", data);
     try {
       const response = await axios.post("/api/sign-up", data)
       console.log("response : ", response);
@@ -85,9 +85,9 @@ export default function SignUp() {
       setIsSubmitting(false)
 
     } catch (error) {
-      console.log("error ",error);
+      console.log("error ", error);
       const axiosError = error as AxiosError<apiResponse>;
-      console.log("Axios error: ",axiosError);
+      console.log("Axios error: ", axiosError);
       let errorMessage = axiosError?.response?.data.message
 
       toast({
@@ -116,81 +116,83 @@ export default function SignUp() {
             <p className="mb-4">Sign up to start your anonymous conversations</p>
 
             <Form {...form}>
-              
-                <form onSubmit={form.handleSubmit(OnSubmit)}
-                  className="space-y-5">
-                  <FormField
-                    name="username"
-                    control={form.control}
-                    render={({ field }) => (
-                      <FormItem className="flex flex-col items-start">
-                        <FormLabel className="ml-3">Username</FormLabel>
-                        
-                          <Input placeholder="username" {...field} onChange={
-                            (e) => {
-                              field.onChange(e);
-                              debounce(e.target.value)
 
-                            }} />
+              <form onSubmit={form.handleSubmit(OnSubmit)}
+                className="space-y-5">
+                <FormField
+                  name="username"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col items-start">
+                      <FormLabel className="ml-3">Username</FormLabel>
 
-                          {isChecking &&
-                            <div className="flex flex-row space-x-2"><Loader2 className="animate-spin" /> checking </div>
-                          }
+                      <Input placeholder="username" {...field} onChange={
+                        (e) => {
+                          field.onChange(e);
+                          const lowerCaseValue = e.target.value.toLowerCase();
+                          debounce(lowerCaseValue);
 
-                          {usernameMessage && <div className={
-                            ` flex flex-row gap-1 items-center text-sm ${usernameMessage === "Username is unique" ? `text-green-500 ` : `text-red-500 `} `
-                          }>
-                            {usernameMessage === "Username is unique" ? (
-                              <CheckCheck></CheckCheck>
-                            ) : (
-                              <CircleX></CircleX>
-                            )}{usernameMessage} 
 
-                          </div>}
-                        
-                        <FormDescription className="ml-3">
-                          This is your public display name.
-                        </FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    name="email"
-                    control={form.control}
-                    render={({ field }) => (
-                      <FormItem className=" flex flex-col items-start ">
-                        <FormLabel className="ml-3">Email</FormLabel>
-                        <Input {...field} name="email" placeholder="xyz@bubbler.com" />
-                        <p className='text-muted text-gray-600 text-sm ml-3'>We will send you a verification code</p>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    name="password"
-                    control={form.control}
-                    render={({ field }) => (
-                      <FormItem className="flex flex-col items-start">
-                        <FormLabel className="ml-3">Password</FormLabel>
-                        <Input type="password" {...field} name="password" placeholder="1-9 A-z etc" />
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <Button type="submit" className="w-full" disabled={isSubmitting}>
+                        }} />
 
-                    {
-                      isSubmitting ? (
-                        <>
-                          <Loader2 className="animate-spin w-4 h-4" /> 'Please wait'
-                        </>
-                      ) : ('Sign Up')
-                    }
+                      {isChecking &&
+                        <div className="flex flex-row space-x-2"><Loader2 className="animate-spin" /> checking </div>
+                      }
 
-                  </Button>
-                </form>
-              
+                      {usernameMessage && <div className={
+                        ` flex flex-row gap-1 items-center text-sm ${usernameMessage === "Username is unique" ? `text-green-500 ` : `text-red-500 `} `
+                      }>
+                        {usernameMessage === "Username is unique" ? (
+                          <CheckCheck></CheckCheck>
+                        ) : (
+                          <CircleX></CircleX>
+                        )}{usernameMessage}
+
+                      </div>}
+
+                      <FormDescription className="ml-3">
+                        This is your public display name.
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  name="email"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem className=" flex flex-col items-start ">
+                      <FormLabel className="ml-3">Email</FormLabel>
+                      <Input {...field} name="email" placeholder="xyz@bubbler.com" />
+                      <p className='text-muted text-gray-600 text-sm ml-3'>We will send you a verification code</p>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  name="password"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col items-start">
+                      <FormLabel className="ml-3">Password</FormLabel>
+                      <Input type="password" {...field} name="password" placeholder="1-9 A-z etc" />
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button type="submit" className="w-full" disabled={isSubmitting}>
+
+                  {
+                    isSubmitting ? (
+                      <>
+                        <Loader2 className="animate-spin w-4 h-4" /> Please wait
+                      </>
+                    ) : ('Sign Up')
+                  }
+
+                </Button>
+              </form>
+
             </Form>
 
             <div className="text-center mt-4">

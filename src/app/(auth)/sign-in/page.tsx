@@ -62,7 +62,7 @@ export default function SignIn() {
             toast({
                 title:"Sign In Successful!"
             })
-            router.replace('/');
+            router.replace('/dashboard');
         }
     }
 

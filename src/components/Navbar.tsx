@@ -17,7 +17,7 @@ export default function Navbar() {
 
         <nav className="p-4 md:p-6 shadow-md font-semibold bg-white text-gray-900 ">
             <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
-                <a href="#" className="text-[35px] font-bold mb-4 md:mb-0 font-flux  flex flex-row items-center justify-between gap-1">
+                <a href="/" className="text-[35px] font-bold mb-4 md:mb-0 font-flux  flex flex-row items-center justify-between gap-1">
                     <MessageCircleCode className="w-6 h-6 " /> Bubbler Messenger
                 </a>
                 {session ? (
