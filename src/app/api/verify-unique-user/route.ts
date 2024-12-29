@@ -41,10 +41,12 @@ export async function GET(req:Request){
 
             const userInDb = await UserModel.findOne({
                 username,
-                isVerified:true
+                isVerifed:true
             })
 
+            
             if(userInDb){
+                
                 return Response.json({
                     success:false,
                     message:"Username already exits"
