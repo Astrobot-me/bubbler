@@ -17,19 +17,17 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <html lang="en">
-        <body
-
-        >
-
-          <Analytics />
-          <Navbar />
-          {children}
-          <Footer />
 
 
-        </body>
-      </html>
+      <div>
+        <Analytics />
+        <Navbar />
+        {children}
+        <Footer />
+
+      </div>
+
+
     </>
   );
 }
