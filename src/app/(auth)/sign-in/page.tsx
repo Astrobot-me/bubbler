@@ -34,7 +34,7 @@ export default function SignIn() {
     const OnSubmit = async (data: z.infer<typeof signinSchema>) => {
         const result  = await signIn('credentials', {
             redirect: false,
-            identifier: data.identifier,
+            identifier: data.identifier.toLowerCase(),
             password: data.password
         }) 
 

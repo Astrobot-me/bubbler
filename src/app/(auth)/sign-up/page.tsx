@@ -72,16 +72,19 @@ export default function SignUp() {
 
   const OnSubmit = async (data: z.infer<typeof userValidator>) => {
     setIsSubmitting(true)
-    console.log("data object", data);
+    // console.log("data object", data);
     try {
-      const response = await axios.post("/api/sign-up", data)
+      const response = await axios.post("/api/sign-up", {
+        ...data,
+        username:data.username.toLowerCase()
+      })
       // console.log("response : ", response);
       // Handle more cases for toast
       toast({
         title: "Successfull ",
         description: "User Registered! Verification Email Sent, Please verify"
       })
-      router.replace(`/verify/${data.username}`)
+      router.replace(`/verify/${data.username.toLowerCase()}`)
       setIsSubmitting(false)
 
     } catch (error) {
