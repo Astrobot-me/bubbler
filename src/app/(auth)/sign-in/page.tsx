@@ -36,9 +36,18 @@ export default function SignIn() {
             redirect: false,
             identifier: data.identifier,
             password: data.password
-        })
+        }) 
 
-        console.log("Result object ::",result);
+        // console.log("Result object ::",result);
+
+        if(!result){
+            setIsClicked(false)
+            toast({
+                title: 'Login Failed',
+                description: 'Some Internal Error Occured, Please Try again later ! ',
+                variant: 'destructive',
+            });
+        }
         
 
         if (result?.error) {
@@ -58,7 +67,7 @@ export default function SignIn() {
             }
         }
 
-        if (result.url || result.ok) {
+        if (result && (result.url || result.ok)) {
             toast({
                 title:"Sign In Successful!"
             })

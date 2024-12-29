@@ -10,7 +10,7 @@ type paramObject = {
 }>}
 
 
-export async function DELETE(req:Request,{params}:params) {
+export async function DELETE(req:Request,{params}:paramObject) {
     
     await dbConnect();
     
