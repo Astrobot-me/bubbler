@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer"
 import AuthProvider from "../context/AuthProvider";
 
-
+import { Analytics } from "@vercel/analytics/react"
 
 export const metadata: Metadata = {
   title: "Bubble Messenger",
@@ -21,7 +21,7 @@ export default function RootLayout({
         
       > 
         
-
+            <Analytics/>
             <Navbar/>
             {children}
             <Footer/>
