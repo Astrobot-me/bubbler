@@ -1,5 +1,5 @@
 import dbConnect from "@/lib/dbConnect";
-import sendVerificationEmail from "@/helpers/sendVerificationEmail";
+import sendVerificationEmail, { sendMailerSendEmail, sendMailgunEmail } from "@/helpers/sendVerificationEmail";
 import UserModel from "@/models/User";
 import bcrypt from 'bcryptjs';
 // import { hash } from "crypto";
@@ -76,7 +76,9 @@ export async function  POST(req:Request) {
         }
 
         const emailReciept = await sendVerificationEmail(email,verifyOTP.toString(),username)
-
+        // const emailReciept = await sendMailgunEmail(email,verifyOTP.toString(),username)
+        // const emailReciept = await sendMailerSendEmail(email,verifyOTP.toString(),username)
+        console.log("Email Reciept",emailReciept);
         if (emailReciept){
             if(emailReciept.success){
                 return Response.json(

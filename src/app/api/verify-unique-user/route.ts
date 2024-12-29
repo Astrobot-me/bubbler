@@ -49,7 +49,7 @@ export async function GET(req:Request){
                 
                 return Response.json({
                     success:false,
-                    message:"Username already exits"
+                    message:"Username already exists"
                 },{
                     status:200
                 })

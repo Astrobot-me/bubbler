@@ -12,7 +12,7 @@ import { Form, FormField, FormItem, FormLabel, FormMessage } from "@/components/
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Loader2 } from "lucide-react";
+import { Home, Loader2 } from "lucide-react";
 
 
 export default function SignIn() {
@@ -122,11 +122,17 @@ export default function SignIn() {
                             </Button>
                         </form>
                     </Form>
-                    <div className="text-center mt-4">
+                    <div className="text-center flex flex-col items-center gap-2 mt-4">
                         <p>
                             Not a member yet?{' '}
                             <Link href="/sign-up" className="text-blue-600 hover:text-blue-800">
                                 Sign up
+                            </Link>
+                        </p>
+                        <p className="flex flex-row gap-1">
+                            Go to Home{' '}
+                            <Link href="/" className="text-blue-600 hover:text-blue-800">
+                                <Home></Home>
                             </Link>
                         </p>
                     </div>

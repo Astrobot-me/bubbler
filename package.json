@@ -26,6 +26,8 @@
     "dayjs": "^1.11.13",
     "input-otp": "^1.4.1",
     "lucide-react": "^0.469.0",
+    "mailersend": "^2.3.0",
+    "mailgun.js": "^10.3.0",
     "mongoose": "^8.9.2",
     "next": "15.1.2",
     "next-auth": "^4.24.11",

@@ -21,7 +21,7 @@ export default function EmailTemplate({
         height={320}
         src="https://i.imgur.com/222iK9F.gif"
       />
-      <Section className="mt-[32px] text-center">
+      <Section className="mt-[32px] text-center flex flex-col items-center">
         <Text className="mt-[16px] text-[18px] font-semibold leading-[28px] text-indigo-600">
           Bubbler Login One Time Password 
         </Text>
@@ -29,14 +29,14 @@ export default function EmailTemplate({
           as="h1"
           className="text-[36px] font-semibold leading-[40px] tracking-[0.4px] text-gray-900"
         >
-         Email {email} & Username  {username}
+         Email {email} <br></br> Username  <span className="italic underline"> {username}</span>
         </Heading>
-        <Text className="mt-[8px] text-[16px] leading-[24px] text-gray-900">
-          Please don't share this otp with anyone, keep you otp secured
+        <Text className="mt-[8px] font-bold text-[20px] leading-[24px] text-gray-900">
+          Please don't share this otp with anyone, Keep Your otp Secured
         </Text>
         <Heading
           as="h1"
-          className="text-[50px] font-semibold leading-[40px] tracking-[0.4px] text-black"
+          className="text-[70px] font-semibold text-center font-flux leading-[40px] tracking-[0.4px] text-black"
         >
          {otp}
         </Heading>

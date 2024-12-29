@@ -23,7 +23,7 @@ import {
   FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Check, CheckCheck, CircleX, Loader2 } from "lucide-react";
+import { Check, CheckCheck, CircleX, HomeIcon, Loader2 } from "lucide-react";
 
 
 export default function SignUp() {
@@ -75,19 +75,19 @@ export default function SignUp() {
     console.log("data object", data);
     try {
       const response = await axios.post("/api/sign-up", data)
-      console.log("response : ", response);
+      // console.log("response : ", response);
       // Handle more cases for toast
       toast({
         title: "Successfull ",
-        description: "User Registered! Please verify"
+        description: "User Registered! Verification Email Sent, Please verify"
       })
       router.replace(`/verify/${data.username}`)
       setIsSubmitting(false)
 
     } catch (error) {
-      console.log("error ", error);
+      // console.log("error ", error);
       const axiosError = error as AxiosError<apiResponse>;
-      console.log("Axios error: ", axiosError);
+      // console.log("Axios error: ", axiosError);
       let errorMessage = axiosError?.response?.data.message
 
       toast({
@@ -195,13 +195,19 @@ export default function SignUp() {
 
             </Form>
 
-            <div className="text-center mt-4">
+            <div className="text-center flex flex-col items-center gap-2 mt-4">
               <p>
                 Already a member?{' '}
                 <Link href="/sign-in" className="text-blue-600 hover:text-blue-800">
                   Sign in
                 </Link>
               </p>
+              <p className="flex flex-row gap-1">
+                            Go to Home{' '}
+                            <Link href="/" className="text-blue-600 hover:text-blue-800">
+                                <HomeIcon></HomeIcon>
+                            </Link>
+                        </p>
             </div>
 
           </div>
