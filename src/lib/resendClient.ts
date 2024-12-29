@@ -6,10 +6,10 @@ import { MailerSend } from "mailersend";
 // Initialize Mailgun
 const mailgun = new Mailgun(formData);
 
-export const MailgunClient = mailgun.client({
-    username: 'api',
-    key: process.env.MAILGUN_API_KEY || "",
-});
+// export const MailgunClient = mailgun.client({
+//     username: 'api',
+//     key: process.env.MAILGUN_API_KEY || "",
+// });
 
 export const mailerSend = new MailerSend({
     apiKey: process.env.MAILERSEND_SECRET_KEY || "",
