@@ -4,6 +4,7 @@ import facegif from "../../../resources/thinkingface2.gif"
 import { ArrowBigLeftIcon, ArrowLeftRightIcon, ArrowRightIcon, ArrowRightLeftIcon, Hand } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Features from "@/components/Features";
+import Link from "next/link";
 
 export default function Home() {
 
@@ -30,8 +31,8 @@ export default function Home() {
             >
               <p className=" font-montserrat">{
                 
-                session && session?.user? (<a href="/dashboard">Dashboard</a>):(
-                 <a href="/sign-up">Sign Up</a>
+                session && session?.user? (<Link href="/dashboard" prefetch={true}>Dashboard</Link>):(
+                 <Link href="/sign-up" prefetch={true}>Sign Up</Link>
                 )
                 
                 }</p>
