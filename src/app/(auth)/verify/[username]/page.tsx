@@ -34,7 +34,7 @@ export default function SignIn() {
   })
 
   const params = useParams<{ username: string }>()
-  console.log("username",params);
+  // console.log("username",params);
   
   
   if(params.username){
@@ -107,7 +107,8 @@ export default function SignIn() {
             <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
               Verify Your Account
             </h1>
-            <p className="mb-4">Enter the verification code sent to your email</p>
+            <p className="mb-2">Enter the verification code sent to your email</p>
+            <p className="mb-4 italic">Email sent for <span className="text-blue-950 font-semibold underline"> {params.username} </span></p>
           </div>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(OnSubmit)} className="space-y-6">

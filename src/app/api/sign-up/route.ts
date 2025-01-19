@@ -32,7 +32,12 @@ export async function  POST(req:Request) {
         }
         
         // checking for existing user with same email
-        const existingUser = await UserModel.findOne({email})
+        const existingUser = await UserModel.findOne(
+            {$or:[
+                {email},
+                {username}
+            ]}
+        )
 
         // generating one time password
         const verifyOTP = parseInt((Math.random() * 900000 ).toString(),10) +100000
@@ -41,13 +46,14 @@ export async function  POST(req:Request) {
             if (existingUser.isVerifed) {
                 return Response.json({
                     success:false,
-                    message:"User already exists with same email"
+                    message:"User already exists with same email or username"
                 },{
                     status:400
                 })
             } else {
                 const hashPassword = await bcrypt.hash(password,10)
                 existingUser.password = hashPassword
+                existingUser.email = email
                 existingUser.verifyCode = verifyOTP.toString()
                 existingUser.verifyCodeExpiry = new Date(Date.now()+ 3600000)
                 await existingUser.save()
