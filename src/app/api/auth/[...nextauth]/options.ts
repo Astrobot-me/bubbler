@@ -35,10 +35,10 @@ export const authOption : NextAuthOptions = {
                         throw new Error("Please verify your account before logging in")
                     }
 
-                    const isPassCorrect = bcrypt.compare(credentials.password,user.password)
+                    const isPassCorrect = await bcrypt.compare(credentials.password,user.password)
 
                     if(!isPassCorrect){
-                        throw new Error("Incorect password entered ")
+                        throw new Error("Incorect username or password entered ")
                     }
 
                     return user
